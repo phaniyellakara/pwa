@@ -28,15 +28,6 @@
 <body>
     <noscript>Please enable JavaScript</noscript>
     <h1>PWA Demo application</h1>
-    <p>This page must be accessed using HTTPS or via localhost.</p>
-    <button class="js-notify-btn">Notify me!</button>
-    <button disabled class="js-push-btn">Enable Push Messaging</button><br><br>
-    <section class="js-sub-endpoint" style="display:none;width:80%">
-        <h3>Subscription Object:</h3>
-        <code class="js-subscription-json"></code><br><br><br>
-        <h3>Endpoint URL:</h3>
-        <code class="js-endpoint-url"></code>
-    </section>
     <script>
         if (!("serviceWorker" in navigator)) {
             console.log("Service worker not supported");
