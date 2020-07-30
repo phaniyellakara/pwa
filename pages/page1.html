@@ -27,24 +27,7 @@
 
 <body>
     <noscript>Please enable JavaScript</noscript>
-    <h1>PWA Demo application</h1>
-    <nav>
-        <a href="pages/page1.html">Page 1</a> |
-        <a href="pages/page2.html">Page 2</a> |
-    </nav>
-    <h2>Push Notifications</h2>
-    <script>
-        if (!("serviceWorker" in navigator)) {
-            console.log("Service worker not supported");
-        } else {
-            navigator.serviceWorker.register("service-worker.js", { scope: '/pwa/' }).then(function (registration) {
-                console.log("SW successfully registered");
-            }).catch(function (error) {
-                console.log("registration failed", error);
-            });
-        }        
-    </script>
-    <script src="js/main.js"></script>
+    <h1>Page 1</h1>
 </body>
 
 </html>
