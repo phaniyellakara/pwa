@@ -42,6 +42,34 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+self.addEventListener("fetch", (event) => {
+  console.log("Fetch event for ", event.request.url);
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then((response) => {
+        if (response) {
+          console.log("Found ", event.request.url, " in cache");
+          return response;
+        }
+        console.log("Network request for ", event.request.url);
+        return fetch(event.request).then((response) => {
+          if (response.status === 404) {
+            return caches.match("pages/404.html");
+          }
+          return caches.open(staticCacheName).then((cache) => {
+            cache.put(event.request.url, response.clone());
+            return response;
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Error, ", error);
+        return caches.match("pages/offline.html");
+      })
+  );
+});
+
 self.addEventListener("notificationclose", (event) => {
   const notification = event.notification;
   const primaryKey = notification.data.primaryKey;
@@ -122,33 +150,5 @@ self.addEventListener("push", (event) => {
         console.log("Application is already open!");
       }
     })
-  );
-});
-
-self.addEventListener("fetch", (event) => {
-  console.log("Fetch event for ", event.request.url);
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then((response) => {
-        if (response) {
-          console.log("Found ", event.request.url, " in cache");
-          return response;
-        }
-        console.log("Network request for ", event.request.url);
-        return fetch(event.request).then((response) => {
-          if (response.status === 404) {
-            return caches.match("pages/404.html");
-          }
-          return caches.open(staticCacheName).then((cache) => {
-            cache.put(event.request.url, response.clone());
-            return response;
-          });
-        });
-      })
-      .catch((error) => {
-        console.log("Error, ", error);
-        return caches.match("pages/offline.html");
-      })
   );
 });
