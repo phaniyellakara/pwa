@@ -72,7 +72,8 @@ const pwaApp = (() => {
   const applicationServerPublicKey = "YOUR_VAPID_PUBLIC_KEY";
 
   function subscribeUser() {
-    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+    // const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+    // applicationServerKey: applicationServerKey,
     swRegistration.pushManager
       .subscribe({
         userVisibleOnly: true,
