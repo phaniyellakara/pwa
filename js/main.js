@@ -59,15 +59,12 @@ const pwaApp = (() => {
     // Set the initial subscription value
     swRegistration.pushManager.getSubscription().then((subscription) => {
       isSubscribed = subscription !== null;
-
       updateSubscriptionOnServer(subscription);
-
       if (isSubscribed) {
         console.log("User IS subscribed.");
       } else {
         console.log("User is NOT subscribed.");
       }
-
       updateBtn();
     });
   }
@@ -83,11 +80,8 @@ const pwaApp = (() => {
       })
       .then((subscription) => {
         console.log("User is subscribed:", subscription);
-
         updateSubscriptionOnServer(subscription);
-
         isSubscribed = true;
-
         updateBtn();
       })
       .catch((err) => {
