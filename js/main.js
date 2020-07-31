@@ -70,7 +70,7 @@ const pwaApp = (() => {
   }
 
   const applicationServerPublicKey =
-    "AAAAsSLSNCw:APA91bH0Bw8-LgeC7PInMcIYbPdLN9aUj-F8mNEhNDbi9K0bjFG3HAmmS-bK74Jevz2XTKPu7K5vWdfymggCKj4CPJ3nSdzHZkheZSkmUeQncIp5wKNSiGTAr_58DcuzTltaTbuKqlA6";
+    "BHWm9ozQKE6XXZtErbetBi1fhbMFao0iemE3LgXHKh-x5bzCn28qwq_3W-OFX7qUYd8KLYOxa8MQumyv_l2Pk24";
 
   function subscribeUser() {
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
