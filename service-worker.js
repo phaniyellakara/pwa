@@ -1,12 +1,43 @@
 console.log("Service worker waking up! 😴 ");
 
+const filesToCache = [
+  "/",
+  "images/checkmark.png",
+  "images/notification-flat.png",
+  "images/xmark.png",
+  "index.html",
+  "pages/offline.html",
+  "pages/404.html",
+];
+
+const staticCacheName = "pages-cache-v2";
+
+// For installability
 self.addEventListener("install", (event) => {
   console.log("Service worker installed! 👍");
-  skipWaiting();
+  // skipWaiting();
+  event.waitUntil(
+    caches.open(staticCacheName).then((cache) => {
+      return cache.addAll(filesToCache);
+    })
+  );
 });
 
+// for activating the latest service worker
 self.addEventListener("activate", (event) => {
   console.log("Service worker activated! 😁");
+  const cacheWhitelist = [staticCacheName];
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
 });
 
 self.addEventListener("notificationclose", (event) => {
@@ -92,13 +123,30 @@ self.addEventListener("push", (event) => {
   );
 });
 
-self.addEventListener("fetch", function (event) {
+self.addEventListener("fetch", (event) => {
+  console.log("Fetch event for ", event.request.url);
   event.respondWith(
-    caches.match(event.request).then(function (response) {
-      if (response) {
-        return response;
-      }
-      return fetch(event.request);
-    })
+    caches
+      .match(event.request)
+      .then((response) => {
+        if (response) {
+          console.log("Found ", event.request.url, " in cache");
+          return response;
+        }
+        console.log("Network request for ", event.request.url);
+        return fetch(event.request).then((response) => {
+          if (response.status === 404) {
+            return caches.match("pages/404.html");
+          }
+          return caches.open(staticCacheName).then((cache) => {
+            cache.put(event.request.url, response.clone());
+            return response;
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Error, ", error);
+        return caches.match("pages/offline.html");
+      })
   );
 });
