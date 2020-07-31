@@ -2,6 +2,7 @@ console.log("Service worker waking up! 😴 ");
 
 const filesToCache = [
   "/",
+  "manifest.json",
   "images/checkmark.png",
   "images/notification-flat.png",
   "images/xmark.png",
