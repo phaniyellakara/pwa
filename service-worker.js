@@ -1,3 +1,14 @@
+console.log("Service worker waking up! 😴 ");
+
+self.addEventListener("install", (event) => {
+  console.log("Service worker installed! 👍");
+  skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  console.log("Service worker activated! 😁");
+});
+
 self.addEventListener("notificationclose", (event) => {
   const notification = event.notification;
   const primaryKey = notification.data.primaryKey;
@@ -77,6 +88,17 @@ self.addEventListener("push", (event) => {
         // Send a message to the page to update the UI
         console.log("Application is already open!");
       }
+    })
+  );
+});
+
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+    caches.match(event.request).then(function (response) {
+      if (response) {
+        return response;
+      }
+      return fetch(event.request);
     })
   );
 });
