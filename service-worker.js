@@ -6,6 +6,7 @@ const filesToCache = [
   "images/checkmark.png",
   "images/notification-flat.png",
   "images/xmark.png",
+  "is/main.js",
   "index.html",
   "pages/offline.html",
   "pages/404.html",
