@@ -76,7 +76,6 @@ const pwaApp = (() => {
     swRegistration.pushManager
       .subscribe({
         userVisibleOnly: true,
-        applicationServerKey: applicationServerKey,
       })
       .then((subscription) => {
         console.log("User is subscribed:", subscription);
