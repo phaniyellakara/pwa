@@ -70,6 +70,7 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+// Notification api events - notificationclose
 self.addEventListener("notificationclose", (event) => {
   const notification = event.notification;
   const primaryKey = notification.data.primaryKey;
@@ -77,6 +78,7 @@ self.addEventListener("notificationclose", (event) => {
   console.log("Closed notification: " + primaryKey);
 });
 
+// Notification api events - notificationcilck
 self.addEventListener("notificationclick", (event) => {
   const notification = event.notification;
   const primaryKey = notification.data.primaryKey;
@@ -109,15 +111,9 @@ self.addEventListener("notificationclick", (event) => {
   });
 });
 
+// Push api
 self.addEventListener("push", (event) => {
-  let body;
-
-  if (event.data) {
-    body = event.data.text();
-  } else {
-    body = "Default body";
-  }
-
+  let body = event.data ? event.data.text() : "Default body";
   const options = {
     body: body,
     icon: "images/notification-flat.png",

@@ -7,15 +7,17 @@ const pwaApp = (() => {
   const notifyButton = document.querySelector(".js-notify-btn");
   const pushButton = document.querySelector(".js-push-btn");
 
+  // Notification API
+  // 1. Check for the support
   if (!("Notification" in window)) {
     console.log("Notifications not supported in this browser");
     return;
   }
-
+  // 2. Request permission
   Notification.requestPermission((status) => {
     console.log("Notification permission status:", status);
   });
-
+  // 3. Display Notification
   function displayNotification() {
     if (Notification.permission == "granted") {
       navigator.serviceWorker.getRegistration().then((reg) => {
