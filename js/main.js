@@ -69,14 +69,16 @@ const pwaApp = (() => {
     });
   }
 
-  const applicationServerPublicKey = "YOUR_VAPID_PUBLIC_KEY";
+  const applicationServerPublicKey =
+    "AAAAsSLSNCw:APA91bH0Bw8-LgeC7PInMcIYbPdLN9aUj-F8mNEhNDbi9K0bjFG3HAmmS-bK74Jevz2XTKPu7K5vWdfymggCKj4CPJ3nSdzHZkheZSkmUeQncIp5wKNSiGTAr_58DcuzTltaTbuKqlA6";
 
   function subscribeUser() {
-    // const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-    // applicationServerKey: applicationServerKey,
+    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+
     swRegistration.pushManager
       .subscribe({
         userVisibleOnly: true,
+        applicationServerKey: applicationServerKey,
       })
       .then((subscription) => {
         console.log("User is subscribed:", subscription);
