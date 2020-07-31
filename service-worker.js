@@ -19,11 +19,11 @@ self.addEventListener("notificationclick", (event) => {
           return c.visibilityState === "visible";
         });
         if (client !== undefined) {
-          client.navigate("samples/page" + primaryKey + ".html");
+          client.navigate("pages/page" + primaryKey + ".html");
           client.focus();
         } else {
           // there are no visible windows. Open one.
-          clients.openWindow("samples/page" + primaryKey + ".html");
+          clients.openWindow("pages/page" + primaryKey + ".html");
           notification.close();
         }
       })
