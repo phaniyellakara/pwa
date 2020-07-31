@@ -1,0 +1,10 @@
+web-push generate-vapid-keys [--json]
+=======================================
+
+Public Key:
+BHWm9ozQKE6XXZtErbetBi1fhbMFao0iemE3LgXHKh-x5bzCn28qwq_3W-OFX7qUYd8KLYOxa8MQumyv_l2Pk24
+
+Private Key:
+m8bxMOS5D2ojAqTBUakLWBJAprOXDAETGkGKolxYn8c
+
+=======================================
