@@ -90,6 +90,19 @@
             }
         }
 
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                console.log("Service Worker supported");
+                navigator.serviceWorker.register("service-worker.js", { scope: "/pwa/" }).then((swReg) => {
+                    console.log("Service Worker is registered", swReg);
+                }).catch((err) => {
+                    console.error("Service Worker Error", err);
+                });
+            });
+        } else {
+            console.warn("Service worker is not supported");
+        }
+        /***/
         const triggerBtn = document.querySelector('.trigger-push-btn');
         triggerBtn.addEventListener('click', triggerPushNotification);
         function triggerPushNotification() {
