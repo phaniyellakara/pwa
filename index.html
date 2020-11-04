@@ -33,10 +33,21 @@
         <a href="pages/page1.html">Page 1</a> |
         <a href="pages/page2.html">Page 2</a> |
     </nav>
-    <h2>Push Notifications</h2>
-    <p>This page must be accessed using HTTPS or via localhost.</p>
-    <input type="text" id="push-notification-data" />
-    <button class="trigger-push-btn">Browser Push Notification</button>
+    <div>
+        <h2>Web Push Notifications</h2>
+        <div>
+            <h3>in-app notifications</h3>
+        </div>
+        <div>
+            <h3>browser push notifications</h3>
+            <ol>
+                <li>Enable notification on https://py-nodeapi.herokuapp.com/</li>
+                <li>Trigger push notification below with payload</li>
+            </ol>
+            <input type="text" id="push-notification-data" />
+            <button class="trigger-push-btn">Browser Push Notification</button>
+        </div>
+    </div>
     <script>
         const triggerBtn = document.querySelector('.trigger-push-btn');
         triggerBtn.addEventListener('click', triggerPushNotification);
