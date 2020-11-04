@@ -1,9 +1,6 @@
 const pwaApp = (() => {
   "use strict";
 
-  let isSubscribed = false;
-  let swRegistration = null;
-
   const notifyBtn = document.querySelector('.notify-btn');
   const triggerBtn = document.querySelector('.trigger-push-btn');
 
@@ -60,10 +57,6 @@ const pwaApp = (() => {
         .register("service-worker.js", { scope: "/pwa/" })
         .then((swReg) => {
           console.log("Service Worker is registered", swReg);
-
-          swRegistration = swReg;
-
-          initializeUI();
         })
         .catch((err) => {
           console.error("Service Worker Error", err);
