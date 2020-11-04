@@ -37,6 +37,7 @@
         <h2>Web Push Notifications</h2>
         <div>
             <h3>1. in-app notifications</h3>
+            <button class="notify-btn">Notify me!(in-app notifications)</button>
         </div>
         <div>
             <h3>2. browser push notifications</h3>
@@ -50,6 +51,45 @@
         </div>
     </div>
     <script>
+        const notifyBtn = document.querySelector('.notify-btn');
+        notifyBtn.addEventListener('click', displayNotification);
+        if (!("Notification" in window)) {
+            console.log("Notifications not supported in this browser");
+        } else {
+            Notification.requestPermission((status) => {
+                console.log("Notification permission status:", status);
+            });
+        }
+        function displayNotification() {
+            if (Notification.permission == "granted") {
+                navigator.serviceWorker.getRegistration().then((reg) => {
+                    const options = {
+                        body: "First notification!",
+                        tag: "id1",
+                        icon: "images/notification-flat.png",
+                        vibrate: [100, 50, 100],
+                        data: {
+                            dateOfArrival: Date.now(),
+                            primaryKey: 1,
+                        },
+                        actions: [
+                            {
+                                action: "explore",
+                                title: "Go to the site",
+                                icon: "images/checkmark.png",
+                            },
+                            {
+                                action: "close",
+                                title: "Close the notification",
+                                icon: "images/xmark.png",
+                            },
+                        ],
+                    };
+                    reg.showNotification("Hello world!", options);
+                });
+            }
+        }
+
         const triggerBtn = document.querySelector('.trigger-push-btn');
         triggerBtn.addEventListener('click', triggerPushNotification);
         function triggerPushNotification() {
