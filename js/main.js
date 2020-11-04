@@ -72,7 +72,7 @@ const pwaApp = (() => {
   }
 
   const applicationServerPublicKey =
-    "BMibQNoCO2cVznZMuBwnPhDbLxs9DJ-GEq768agLw-Ov5eCwRxXECmrEZmxx7C4zw5vuTkqZuZweehlS7M_VdsE";
+    "BBALy4Gfyfa4bsyVdjrOvTSBQeTBfM-wsn2sDKJ4kCsUa-b0gju-noVq5FxX32d52y60OSJd-lRi6XoFilGxQWM";
 
   function subscribeUser() {
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
@@ -130,6 +130,15 @@ const pwaApp = (() => {
       subscriptionJson.textContent = JSON.stringify(subscription);
       endpointURL.textContent = subscription.endpoint;
       subAndEndpoint.style.display = "block";
+      fetch('https://py-nodeapi.herokuapp.com/register', {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          subscription: subscription
+        }),
+      });
     } else {
       subAndEndpoint.style.display = "none";
     }

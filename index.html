@@ -35,28 +35,31 @@
     </nav>
     <h2>Push Notifications</h2>
     <p>This page must be accessed using HTTPS or via localhost.</p>
-    <button class="js-notify-btn">Notify me!(in-app notifications)</button>
-    <button disabled class="js-push-btn">Enable Push Messaging</button><br><br>
-    <section class="js-sub-endpoint" style="display:none;width:80%">
-        <h3>Subscription Object:</h3>
-        <code class="js-subscription-json"></code><br><br><br>
-        <h3>Endpoint URL:</h3>
-        <code class="js-endpoint-url"></code>
-    </section>
-
-    <!-- Include script -->
-    <script src="js/main.js"></script>
-    <!-- <script>
-        if (!("serviceWorker" in navigator)) {
-            console.log("Service worker not supported");
-        } else {
-            navigator.serviceWorker.register("service-worker.js", { scope: '/pwa/' }).then(function (registration) {
-                console.log("SW successfully registered");
-            }).catch(function (error) {
-                console.log("registration failed", error);
+    <input type="text" id="push-notification-data" />
+    <button class="trigger-push-btn">Browser Push Notification</button>
+    <script>
+        const triggerBtn = document.querySelector('.trigger-push-btn');
+        triggerBtn.addEventListener('click', triggerPushNotification);
+        function triggerPushNotification() {
+            const payload = document.getElementById('push-notification-data').value;
+            return fetch('https://py-nodeapi.herokuapp.com/api/trigger-push-msg/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    subscription: {}, payload: payload, delay: '2', ttl: '3',
+                })
+            }).then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Bad status code from server.');
+                }
+                return response.json();
+            }).then(function (responseData) {
+                if (!(responseData.data && responseData.data.success)) {
+                    throw new Error('Bad response from server.');
+                }
             });
         }
-    </script> -->
+    </script>
 </body>
 
 </html>
